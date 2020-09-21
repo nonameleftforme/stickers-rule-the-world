@@ -7,6 +7,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tensorflow-models/posenet": "^2.2.1",
     "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -14,6 +15,7 @@
   "devDependencies": {
     "postcss-flexbugs-fixes": "4.2.1",
     "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.1.2",
     "tailwindcss": "^1.7.4"
   },
   "license": "MIT"
