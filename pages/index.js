@@ -1,4 +1,5 @@
-import Nav from '../components/nav'
+import Nav from '../components/Nav'
+import Upload from '../components/Upload'
 
 export default function IndexPage() {
   return (
@@ -6,8 +7,9 @@ export default function IndexPage() {
       <Nav />
       <div className="py-20">
         <h1 className="text-5xl text-center text-accent-1">
-          Next.js + Tailwind CSS
+          Sticker rules the world
         </h1>
+        <Upload />
       </div>
     </div>
   )
