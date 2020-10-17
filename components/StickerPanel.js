@@ -5,9 +5,11 @@ export default function StickerPanel({ onStickerSelect }) {
       <ul className="flex justify-between items-center space-x-4">
         {stickers.map(filename => (
           <li key={`${filename}`}>
-            <button onClick={() => onStickerSelect(`/images/${filename}.png`)}>
+            <button
+              onClick={() => onStickerSelect(`/stickers/${filename}.png`)}
+            >
               <img
-                src={`/images/${filename}.png`}
+                src={`/stickers/${filename}.png`}
                 height="500"
                 alt={`${filename}`}
                 id={`${filename}`}

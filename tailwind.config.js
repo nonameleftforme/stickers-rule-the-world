@@ -8,6 +8,9 @@ module.exports = {
       colors: {
         'accent-1': '#333',
       },
+      fontFamily: {
+        krakel: ['Reenie Beanie', 'cursive'],
+      },
     },
   },
   variants: {},
