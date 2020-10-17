@@ -21,10 +21,18 @@ async function estimateMultiplePosesOnImage(imageElement) {
 
 export default function Upload() {
   const [image, setImage] = useState()
+  const [sticker, setSticker] = useState()
+  const [poseInfo, setPoseInfo] = useState()
+  const [sizeAlert, setSizeAlert] = useState(false)
 
   const handleChange = e => {
     if (e.target.files.length) {
-      setImage(URL.createObjectURL(e.target.files[0]))
+      if (fileToBig(e.target.files[0])) {
+        setSizeAlert(true)
+      } else {
+        setSizeAlert(false)
+        setImage(URL.createObjectURL(e.target.files[0]))
+      }
     }
   }
 
@@ -37,21 +45,48 @@ export default function Upload() {
       poses.sort((s1, s2) => s2.score - s1.score)
       // pick the 3 highest scored poses -> not necessary because TF only detect 3 Poses
       // poses = poses.slice(0,3)
-      const poseInfo = poses.map(pose => getRelevantPoseInfos(pose))
       console.log(poseInfo)
+      setPoseInfo(poses.map(pose => getRelevantPoseInfos(pose)))
     })
   }
 
   const handleMerge = async e => {
     e.preventDefault()
-    mergeImages([
-      { src: image, x: 0, y: 0 },
-      { src: '/images/music.png', x: 532, y: 0 },
-    ]).then(b64 => (document.querySelector('img').src = b64))
+    const poseSrc = poseInfo.map(function (pose) {
+      return {
+        src: sticker,
+        // the multiplication is random... because else they would be too close to each other
+        // this with the position changes from browser to browser and doesn't place it right
+        x: pose.xEye * 3,
+        y: pose.yEye * 6,
+      }
+    })
+    console.log(poseSrc)
+    mergeImages([{ src: image, x: 0, y: 0 }].concat(poseSrc)).then(
+      b64 => (document.querySelector('img').src = b64)
+    )
   }
 
   return (
-    <div>
+    <div className="">
+      {sizeAlert && (
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto text-center"
+          role="alert"
+        >
+          <strong className="font-bold">Image is to big! </strong>
+          <span className="block sm:inline">Please upload a smaller one</span>
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg
+              className="fill-current h-6 w-6 text-red-500"
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            ></svg>
+          </span>
+        </div>
+      )}
+
       <label htmlFor="upload-button">
         {image ? (
           <img
@@ -92,10 +127,12 @@ export default function Upload() {
       <button onClick={handleUpload} className="btn-blue no-underline">
         Upload
       </button>
-      <StickerPanel />
-      <button onClick={handleMerge} className="btn-blue no-underline">
-        merge this shit
-      </button>
+      <StickerPanel onStickerSelect={sticker => setSticker(sticker)} />
+      {sticker && (
+        <button onClick={handleMerge} className="btn-blue no-underline">
+          merge this shit
+        </button>
+      )}
     </div>
   )
 }
@@ -106,4 +143,11 @@ function getRelevantPoseInfos(pose) {
   const poseHeight =
     (pose.keypoints[16].position.y + pose.keypoints[15].position.y) / 2 - yEye
   return { xEye: xEye, yEye: yEye, poseHeight: poseHeight, score: pose.score }
+}
+
+function fileToBig(file) {
+  if (file.size > 300000) {
+    return true
+  }
+  return false
 }
