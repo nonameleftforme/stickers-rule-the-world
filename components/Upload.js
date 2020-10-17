@@ -9,7 +9,7 @@ async function estimateMultiplePosesOnImage(imageElement) {
   // get the poses
   const poses = await net.estimateMultiplePoses(imageElement, {
     flipHorizontal: false,
-    maxDetections: 2,
+    maxDetections: 3,
     scoreThreshold: 0.6,
     nmsRadius: 20,
   })
@@ -17,7 +17,8 @@ async function estimateMultiplePosesOnImage(imageElement) {
   return poses
 }
 
-export default function Upload1() {
+
+export default function Upload() {
   const [image, setImage] = useState()
 
   const handleChange = e => {
@@ -29,10 +30,15 @@ export default function Upload1() {
   const handleUpload = async e => {
     e.preventDefault()
     const preview = document.getElementById('preview')
-    estimateMultiplePosesOnImage(preview).then(p => {
-      console.log(p)
-    })
-  }
+    estimateMultiplePosesOnImage(preview).then(poses => {
+      console.log(poses)
+      // sort with the highest scores
+      poses.sort((s1, s2) => s2.score - s1.score)
+      // pick the 3 highest scored poses -> not necessary because TF only detect 3 Poses
+      // poses = poses.slice(0,3)
+      const poseInfo = poses.map(pose => getRelevantPoseInfos(pose))
+      console.log(poseInfo)
+  })}
 
   return (
     <div>
@@ -66,4 +72,11 @@ export default function Upload1() {
       <button onClick={handleUpload}>Upload</button>
     </div>
   )
+}
+
+function getRelevantPoseInfos(pose) {
+  const xEye = (pose.keypoints[1].position.x + pose.keypoints[2].position.x)/2
+  const yEye = (pose.keypoints[1].position.y + pose.keypoints[2].position.y)/2
+  const poseHeight = ((pose.keypoints[16].position.y + pose.keypoints[15].position.y)/2) - yEye
+  return { xEye: xEye, yEye: yEye, poseHeight: poseHeight, score: pose.score }
 }
