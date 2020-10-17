@@ -71,11 +71,13 @@ export default function Upload() {
     <div className="">
       {sizeAlert && (
         <div
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto text-center"
+          className="bg-pink-100 border border-pink-400 text-red-700 px-4 py-3 mx-auto rounded max-w-md m-4 text-center"
           role="alert"
         >
-          <strong className="font-bold">Image is to big! </strong>
-          <span className="block sm:inline">Please upload a smaller one</span>
+          <strong className="font-bold uppercase text-xl font-bold">
+            Image is to big!
+          </strong>
+          <span className="block text-xl">Please upload a smaller one</span>
           <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
             <svg
               className="fill-current h-6 w-6 text-red-500"
@@ -87,11 +89,18 @@ export default function Upload() {
         </div>
       )}
       {image ? (
-        <img src={image} id="preview" alt="preview" width="300" height="300" />
+        <img
+          src={image}
+          id="preview"
+          alt="preview"
+          className="sm:w-full"
+          width="300"
+          height="300"
+        />
       ) : (
         <>
           <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
-            <label className="w-64 flex flex-col items-center px-4 py-6 bg-pink-100 text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:bg-pink-300">
+            <label className="lg:w-2/5 flex flex-col items-center px-4 py-6 bg-pink-100 rounded-lg shadow-lg border cursor-pointer  hover:bg-pink-300">
               {/* <svg
                 className="w-8 h-8"
                 fill="currentColor"
@@ -100,10 +109,18 @@ export default function Upload() {
               >
                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
               </svg> */}
-              <img src="/stickers/cloud.png" alt="upload" className="w-1/4" />
-              <span className="mt-2 text-base leading-normal">
-                Select a file
+              <img
+                src="/stickers/cloud.png"
+                alt="upload"
+                className="lg:w-1/4 sm:w-1/3"
+              />
+              <span className="mt-2 uppercase text-base text-3xl leading-normal font-bold">
+                Hi, select a file
               </span>
+              <span className="text-2xl">
+                with some standing people on it, thx
+              </span>
+
               <input
                 type="file"
                 className="hidden"
