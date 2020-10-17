@@ -10,6 +10,7 @@
     "@tensorflow-models/posenet": "^2.2.1",
     "@tensorflow/tfjs-converter": "^1.7.4",
     "@tensorflow/tfjs-core": "^1.7.4",
+    "merge-images": "^2.0.0",
     "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

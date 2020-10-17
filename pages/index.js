@@ -1,5 +1,4 @@
 import Nav from '../components/Nav'
-import StickerPanel from '../components/stickerPanel'
 import Upload from '../components/Upload'
 
 export default function IndexPage() {
@@ -11,7 +10,6 @@ export default function IndexPage() {
           Sticker rules the world
         </h1>
         <Upload />
-        <StickerPanel />
       </div>
     </div>
   )
