@@ -68,10 +68,10 @@ export default function Upload() {
   }
 
   return (
-    <div className="">
+    <div className="justify-center">
       {sizeAlert && (
         <div
-          className="bg-pink-100 border border-pink-400 text-red-700 px-4 py-3 mx-auto rounded max-w-md m-4 text-center"
+          className="bg-pink-100 border border-pink-400 text-pink-700 rounded px-4 py-3 block mx-auto max-w-md m-4 text-center"
           role="alert"
         >
           <strong className="font-bold uppercase text-xl font-bold">
@@ -80,7 +80,7 @@ export default function Upload() {
           <span className="block text-xl">Please upload a smaller one</span>
           <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
             <svg
-              className="fill-current h-6 w-6 text-red-500"
+              className="fill-current h-6 w-6 text-pink-500"
               role="button"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -89,30 +89,18 @@ export default function Upload() {
         </div>
       )}
       {image ? (
-        <img
-          src={image}
-          id="preview"
-          alt="preview"
-          className="sm:w-full"
-          width="300"
-          height="300"
-        />
+        <div className="block md:w-3/6 lg:w-2/6 mx-auto my-4">
+          {/* <div className="md:relative md:pb-1/2 mx-auto"> */}
+          <img src={image} id="preview" alt="preview" className="mt-0" />
+        </div>
       ) : (
         <>
           <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
-            <label className="lg:w-2/5 flex flex-col items-center px-4 py-6 bg-pink-100 rounded-lg shadow-lg border cursor-pointer  hover:bg-pink-300">
-              {/* <svg
-                className="w-8 h-8"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-              </svg> */}
+            <label className="lg:w-2/5 btn-upper-pink">
               <img
                 src="/stickers/cloud.png"
                 alt="upload"
-                className="lg:w-1/4 sm:w-1/3"
+                className="lg:w-1/6 sm:w-1/3"
               />
               <span className="mt-2 uppercase text-base text-3xl leading-normal font-bold">
                 Hi, select a file
@@ -133,18 +121,30 @@ export default function Upload() {
         </>
       )}
       <br />
-      {image && (
-        <button onClick={handleUpload} className="btn-blue no-underline">
-          Upload
-        </button>
+      {image && !poseInfo && (
+        <div className="block mx-auto max-w-md ">
+          <button
+            onClick={handleUpload}
+            className="btn-upper-pink sm:w-5/6 md:w-3/6 lg:w-2/6 mx-auto"
+          >
+            Upload
+          </button>
+        </div>
       )}
       {poseInfo && (
-        <StickerPanel onStickerSelect={sticker => setSticker(sticker)} />
+        <div className="block max-w-2xl m-auto">
+          <StickerPanel onStickerSelect={sticker => setSticker(sticker)} />
+        </div>
       )}
       {sticker && (
-        <button onClick={handleMerge} className="btn-blue no-underline">
-          merge this shit
-        </button>
+        <div className="block m-4">
+          <button
+            onClick={handleMerge}
+            className="btn-upper-pink sm:w-5/6 md:w-3/6 lg:w-2/6 mx-auto"
+          >
+            merge this shit
+          </button>
+        </div>
       )}
     </div>
   )
