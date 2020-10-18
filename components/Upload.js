@@ -24,6 +24,7 @@ export default function Upload() {
   const [sticker, setSticker] = useState()
   const [poseInfo, setPoseInfo] = useState()
   const [sizeAlert, setSizeAlert] = useState(false)
+  const [instructionAlert, setInstructionAlert] = useState(false)
 
   const handleChange = e => {
     if (e.target.files.length) {
@@ -47,6 +48,7 @@ export default function Upload() {
       // poses = poses.slice(0,3)
       console.log(poseInfo)
       setPoseInfo(poses.map(pose => getRelevantPoseInfos(pose)))
+      setInstructionAlert(true)
     })
   }
 
@@ -69,6 +71,27 @@ export default function Upload() {
 
   return (
     <div className="justify-center">
+      {instructionAlert && (
+        <div
+          className="bg-green-100 border border-green-400 text-green-700 rounded px-4 py-3 block mx-auto max-w-md m-4 text-center"
+          role="alert"
+        >
+          <strong className="font-bold uppercase text-xl font-bold">
+            Choose a sticker
+          </strong>
+          <span className="block text-xl">
+            You can change them again and again if you want
+          </span>
+          <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg
+              className="fill-current h-6 w-6 text-green-500"
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            ></svg>
+          </span>
+        </div>
+      )}
       {sizeAlert && (
         <div
           className="bg-pink-100 border border-pink-400 text-pink-700 rounded px-4 py-3 block mx-auto max-w-md m-4 text-center"
@@ -90,7 +113,6 @@ export default function Upload() {
       )}
       {image ? (
         <div className="block md:w-3/6 lg:w-2/6 mx-auto my-4">
-          {/* <div className="md:relative md:pb-1/2 mx-auto"> */}
           <img src={image} id="preview" alt="preview" className="mt-0" />
         </div>
       ) : (
