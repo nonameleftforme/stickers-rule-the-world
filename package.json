@@ -11,6 +11,7 @@
     "@tensorflow-models/posenet": "^2.2.1",
     "@tensorflow/tfjs-converter": "^1.7.4",
     "@tensorflow/tfjs-core": "^1.7.4",
+    "eslint-plugin-react": "^7.21.4",
     "merge-images": "^2.0.0",
     "next": "latest",
     "react": "^16.13.1",
@@ -20,7 +21,14 @@
     "postcss-flexbugs-fixes": "4.2.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
-    "tailwindcss": "^1.7.4"
+    "tailwindcss": "^1.7.4",
+    "@babel/eslint-parser": "^7.12.1",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.1",
+    "eslint-plugin-react-hooks": "^4.1.2"
   },
   "license": "MIT"
 }

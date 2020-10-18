@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import mergeImages from 'merge-images'
 import StickerPanel from './stickerPanel'
-
-const posenet = require('@tensorflow-models/posenet')
+import * as posenet from '@tensorflow-models/posenet'
 
 async function estimateMultiplePosesOnImage(imageElement) {
   // load the model
@@ -76,7 +75,7 @@ export default function Upload() {
           className="bg-green-100 border border-green-400 text-green-700 rounded px-4 py-3 block mx-auto max-w-md m-4 text-center"
           role="alert"
         >
-          <strong className="font-bold uppercase text-xl font-bold">
+          <strong className="uppercase text-xl font-bold">
             Choose a sticker
           </strong>
           <span className="block text-xl">
@@ -97,7 +96,7 @@ export default function Upload() {
           className="bg-pink-100 border border-pink-400 text-pink-700 rounded px-4 py-3 block mx-auto max-w-md m-4 text-center"
           role="alert"
         >
-          <strong className="font-bold uppercase text-xl font-bold">
+          <strong className="uppercase text-xl font-bold">
             Image is to big!
           </strong>
           <span className="block text-xl">Please upload a smaller one</span>
@@ -124,7 +123,7 @@ export default function Upload() {
                 alt="upload"
                 className="lg:w-1/6 sm:w-1/3"
               />
-              <span className="mt-2 uppercase text-base text-3xl leading-normal font-bold">
+              <span className="mt-2 uppercase text-3xl leading-normal font-bold">
                 Hi, select a file
               </span>
               <span className="text-2xl">
