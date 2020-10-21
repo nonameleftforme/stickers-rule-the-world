@@ -73,7 +73,7 @@ export default function Upload() {
     const poseSrc = poseInfo.map(function (pose) {
       return {
         src: sticker,
-        x: pose.xEye - 250, // translate so Ketnpiz eyes somewhat line up with pose eyes
+        x: pose.xEye - 250, // translate so Ketnipz eyes somewhat line up with pose eyes
         y: pose.yEye - 55,
       }
     })
