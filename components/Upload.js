@@ -46,7 +46,24 @@ export default function Upload() {
       // pick the 3 highest scored poses -> not necessary because TF only detect 3 Poses
       // poses = poses.slice(0,3)
       console.log(poseInfo)
-      setPoseInfo(poses.map(pose => getRelevantPoseInfos(pose)))
+
+      // number of image pixels in 1 rendered CSS pixel
+      const scaleFactor = preview.naturalWidth / preview.width;
+
+      // collect relevant info and convert to image coordinates
+      setPoseInfo(poses.map(pose => {
+        const xEye = (pose.keypoints[1].position.x + pose.keypoints[2].position.x) / 2 * scaleFactor;
+        const yEye = (pose.keypoints[1].position.y + pose.keypoints[2].position.y) / 2 * scaleFactor;
+        const poseHeight =
+          ((pose.keypoints[16].position.y + pose.keypoints[15].position.y) / 2 - yEye) * scaleFactor;
+        return {
+          xEye: xEye,
+          yEye: yEye,
+          poseHeight: poseHeight,
+          score: pose.score
+        };
+      }));
+
       setInstructionAlert(true)
     })
   }
@@ -56,10 +73,8 @@ export default function Upload() {
     const poseSrc = poseInfo.map(function (pose) {
       return {
         src: sticker,
-        // the multiplication is random... because else they would be too close to each other
-        // this with the position changes from browser to browser and doesn't place it right
-        x: pose.xEye * 3,
-        y: pose.yEye * 6,
+        x: pose.xEye - 250, // translate so Ketnpiz eyes somewhat line up with pose eyes
+        y: pose.yEye - 55,
       }
     })
     console.log(poseSrc)
@@ -169,14 +184,6 @@ export default function Upload() {
       )}
     </div>
   )
-}
-
-function getRelevantPoseInfos(pose) {
-  const xEye = (pose.keypoints[1].position.x + pose.keypoints[2].position.x) / 2
-  const yEye = (pose.keypoints[1].position.y + pose.keypoints[2].position.y) / 2
-  const poseHeight =
-    (pose.keypoints[16].position.y + pose.keypoints[15].position.y) / 2 - yEye
-  return { xEye: xEye, yEye: yEye, poseHeight: poseHeight, score: pose.score }
 }
 
 function fileToBig(file) {
